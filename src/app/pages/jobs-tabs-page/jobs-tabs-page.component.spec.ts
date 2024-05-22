@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { JobsTabsPageComponent } from './jobs-tabs-page.component';
-import { provideRouter } from "@angular/router";
+import { provideRouter } from '@angular/router';
 
 describe('JobsTabsPageComponent', () => {
   let component: JobsTabsPageComponent;
@@ -10,8 +10,7 @@ describe('JobsTabsPageComponent', () => {
     await TestBed.configureTestingModule({
       imports: [JobsTabsPageComponent],
       providers: [provideRouter([])],
-    })
-      .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(JobsTabsPageComponent);
     component = fixture.componentInstance;

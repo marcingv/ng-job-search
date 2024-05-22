@@ -7,9 +7,8 @@ describe('JobsListPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [JobsListPageComponent]
-    })
-      .compileComponents();
+      imports: [JobsListPageComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(JobsListPageComponent);
     component = fixture.componentInstance;

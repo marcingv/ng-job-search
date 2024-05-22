@@ -1,5 +1,5 @@
 export enum Paths {
-  ROOT= '/',
+  ROOT = '/',
   JOBS = 'jobs',
   FAVOURITES = 'favourites',
   WILDCARD = '**',

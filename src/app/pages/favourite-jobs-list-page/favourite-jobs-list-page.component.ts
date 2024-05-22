@@ -8,6 +8,4 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrl: './favourite-jobs-list-page.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FavouriteJobsListPageComponent {
-
-}
+export class FavouriteJobsListPageComponent {}

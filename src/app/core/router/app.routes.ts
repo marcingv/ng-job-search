@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
-import { MainLayoutComponent } from "@layouts/main-layout";
-import { JobsTabsPageComponent } from "@pages/jobs-tabs-page";
-import { Paths } from "./paths";
-import { JobsListPageComponent } from "@pages/jobs-list-page";
-import { FavouriteJobsListPageComponent } from "@pages/favourite-jobs-list-page";
+import { MainLayoutComponent } from '@layouts/main-layout';
+import { JobsTabsPageComponent } from '@pages/jobs-tabs-page';
+import { Paths } from './paths';
+import { JobsListPageComponent } from '@pages/jobs-list-page';
+import { FavouriteJobsListPageComponent } from '@pages/favourite-jobs-list-page';
 
 export const routes: Routes = [
   {

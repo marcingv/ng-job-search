@@ -1,10 +1,14 @@
 import { TestBed } from '@angular/core/testing';
 import { JobOffersApiService } from './job-offers-api.service';
-import { provideHttpClient } from "@angular/common/http";
-import { HttpTestingController, provideHttpClientTesting, TestRequest } from "@angular/common/http/testing";
-import { JobOffersFactory } from "@testing/job-offers.factory";
-import { JobOffer, JobOfferDetails, JobOfferId } from "@core/types";
-import { JobOfferDetailsFactory } from "@testing/job-offer-details.factory";
+import { provideHttpClient } from '@angular/common/http';
+import {
+  HttpTestingController,
+  provideHttpClientTesting,
+  TestRequest,
+} from '@angular/common/http/testing';
+import { JobOffersFactory } from '@testing/job-offers.factory';
+import { JobOffer, JobOfferDetails, JobOfferId } from '@core/types';
+import { JobOfferDetailsFactory } from '@testing/job-offer-details.factory';
 
 describe('JobOffersApiService', () => {
   let service: JobOffersApiService;
@@ -12,10 +16,7 @@ describe('JobOffersApiService', () => {
 
   beforeEach((): void => {
     TestBed.configureTestingModule({
-      providers: [
-        provideHttpClient(),
-        provideHttpClientTesting(),
-      ],
+      providers: [provideHttpClient(), provideHttpClientTesting()],
     });
 
     httpTestingController = TestBed.inject(HttpTestingController);
@@ -36,9 +37,12 @@ describe('JobOffersApiService', () => {
 
       let fetchedData: JobOffer[] | undefined;
 
-      service.list().subscribe((response: JobOffer[]) => fetchedData = response);
+      service
+        .list()
+        .subscribe((response: JobOffer[]) => (fetchedData = response));
 
-      const request: TestRequest = httpTestingController.expectOne(expectedRequestUrl);
+      const request: TestRequest =
+        httpTestingController.expectOne(expectedRequestUrl);
       expect(request.request.method).toEqual('GET');
 
       request.flush(expectedResponseData);
@@ -51,14 +55,18 @@ describe('JobOffersApiService', () => {
   describe('Details endpoint', () => {
     it('should fetch job offer details', () => {
       const jobOfferId: JobOfferId = JobOffersFactory.nextId();
-      const expectedRequestUrl = `/jobs/${ jobOfferId }`;
-      const expectedResponseData: JobOfferDetails = JobOfferDetailsFactory.createInstance({ id: jobOfferId });
+      const expectedRequestUrl = `/jobs/${jobOfferId}`;
+      const expectedResponseData: JobOfferDetails =
+        JobOfferDetailsFactory.createInstance({ id: jobOfferId });
 
       let fetchedData: JobOfferDetails | undefined;
 
-      service.details(jobOfferId).subscribe((response: JobOfferDetails) => fetchedData = response);
+      service
+        .details(jobOfferId)
+        .subscribe((response: JobOfferDetails) => (fetchedData = response));
 
-      const request: TestRequest = httpTestingController.expectOne(expectedRequestUrl);
+      const request: TestRequest =
+        httpTestingController.expectOne(expectedRequestUrl);
       expect(request.request.method).toEqual('GET');
 
       request.flush(expectedResponseData);

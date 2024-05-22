@@ -1,4 +1,4 @@
-import { JobOfferId } from "./job-offer-id";
+import { JobOfferId } from './job-offer-id';
 
 export interface JobOffer {
   id: JobOfferId;

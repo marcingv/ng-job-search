@@ -1,8 +1,10 @@
-import { JobOfferDetails } from "@core/types";
-import { JobOffersFactory } from "./job-offers.factory";
+import { JobOfferDetails } from '@core/types';
+import { JobOffersFactory } from './job-offers.factory';
 
 export class JobOfferDetailsFactory {
-  public static createInstance(params?: Partial<JobOfferDetails>): JobOfferDetails {
+  public static createInstance(
+    params?: Partial<JobOfferDetails>,
+  ): JobOfferDetails {
     if (!params) {
       params = {};
     }
@@ -12,12 +14,11 @@ export class JobOfferDetailsFactory {
 
     return {
       ...JobOffersFactory.createInstance(params),
-      location: "EMEA,  Europe",
-      industries: ["HR &amp; Recruiting"],
-      types: ["full-time"],
-      description:
-        '<p>Job detailed description</p>',
+      location: 'EMEA,  Europe',
+      industries: ['HR &amp; Recruiting'],
+      types: ['full-time'],
+      description: '<p>Job detailed description</p>',
       publishDate: new Date().toISOString(),
-    }
+    };
   }
 }
