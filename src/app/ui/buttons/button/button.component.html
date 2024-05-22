@@ -1,0 +1,10 @@
+<button
+  class="p-2 flex items-center rounded disabled:opacity-25 {{
+    THEMES[type] + ' ' + cssClass
+  }}"
+  [title]="title ?? ''"
+  [disabled]="disabled"
+  (click)="onClick($event)"
+>
+  <ng-content></ng-content>
+</button>

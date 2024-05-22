@@ -1,9 +1,13 @@
-<ul>
+<ul class="flex border-b mb-8">
   @for (oneTab of tabs(); track oneTab) {
-    <li>
-      <a [routerLink]="oneTab.routerLink" routerLinkActive="active">{{
-        oneTab.name
-      }}</a>
+    <li class="flex-1">
+      <a
+        [routerLink]="oneTab.routerLink"
+        routerLinkActive="active"
+        class="block p-4 text-center uppercase hover:bg-gray-200 active:bg-gray-300"
+      >
+        {{ oneTab.name }}
+      </a>
     </li>
   }
 </ul>
