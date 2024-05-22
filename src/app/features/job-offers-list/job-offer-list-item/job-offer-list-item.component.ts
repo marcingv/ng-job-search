@@ -24,6 +24,7 @@ export class JobOfferListItemComponent implements OnChanges {
   protected readonly REMOVE_FROM_FAVORITES_LABEL = 'Remove from favorites';
 
   @Input({ required: true }) public offer!: JobOffer;
+  @Input() public showActions: boolean = true;
 
   protected isFavourite!: Signal<boolean>;
 

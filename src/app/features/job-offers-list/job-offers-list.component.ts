@@ -12,4 +12,5 @@ import { JobOfferListItemComponent } from './job-offer-list-item/job-offer-list-
 })
 export class JobOffersListComponent {
   @Input({ required: true }) public data: JobOffer[] = [];
+  @Input() public showActions: boolean = true;
 }
