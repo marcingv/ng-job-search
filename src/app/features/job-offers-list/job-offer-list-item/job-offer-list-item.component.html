@@ -23,9 +23,11 @@
   </div>
 
   <div class="px-2">
-    <span
-      [id]="'star-' + offer.id"
-      class="icon-star size-6 inline-block"
-    ></span>
+    <app-button type="transparent">
+      <app-star-icon
+        [id]="'star-' + offer.id"
+        class="text-lg leading-none"
+      ></app-star-icon>
+    </app-button>
   </div>
 </div>
