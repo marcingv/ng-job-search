@@ -308,15 +308,18 @@ const ALL_JOBS = [
 
 export const mockHandlers = [
   http.get('/jobs/:id', ({ params }) => {
-    // @ts-ignore
-    if (params.id in DETAILED) {
-      // @ts-ignore
-      return HttpResponse.json(DETAILED[params.id]);
+    const offerId: number | undefined = params['id']
+      ? +params['id']
+      : undefined;
+
+    if (offerId && offerId in DETAILED) {
+      // @ts-expect-error It is safe here to use offerId as key
+      return HttpResponse.json(DETAILED[offerId]);
     } else {
       return new HttpResponse('', { status: 404 });
     }
   }),
-  http.get('/jobs', ({ request, params, cookies }) => {
+  http.get('/jobs', () => {
     return HttpResponse.json(ALL_JOBS);
   }),
 ];

@@ -14,11 +14,11 @@ export class JobOfferDetailsFactory {
 
     return {
       ...JobOffersFactory.createInstance(params),
-      location: 'EMEA,  Europe',
-      industries: ['HR &amp; Recruiting'],
-      types: ['full-time'],
-      description: '<p>Job detailed description</p>',
-      publishDate: new Date().toISOString(),
+      location: params.location ?? 'EMEA,  Europe',
+      industries: params.industries ?? ['HR &amp; Recruiting'],
+      types: params.types ?? ['full-time'],
+      description: params.description ?? '<p>Job detailed description</p>',
+      publishDate: params.publishDate ?? new Date().toISOString(),
     };
   }
 }
