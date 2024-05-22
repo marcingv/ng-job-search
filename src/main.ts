@@ -5,6 +5,6 @@ import { setupWorker } from 'msw/browser';
 import { mockHandlers } from './mocks';
 
 setupWorker(...mockHandlers)
-  .start()
+  .start({ onUnhandledRequest: 'bypass' })
   .then(() => bootstrapApplication(AppComponent, appConfig))
   .catch((err) => console.error(err));
