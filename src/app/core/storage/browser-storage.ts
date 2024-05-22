@@ -1,71 +1,57 @@
-import { computed, Signal } from '@angular/core';
-import { fromEvent, Subject, tap } from 'rxjs';
-import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
+import { distinctUntilChanged, filter, fromEvent, map, Observable } from 'rxjs';
 
 export abstract class BrowserStorage {
-  private readonly newValue$ = new Subject<{ key: string; value: unknown }>();
-  private readonly newValueSignal = toSignal(this.newValue$);
+  private remoteStorageChange$: Observable<StorageEvent> = (
+    fromEvent(window, 'storage') as Observable<StorageEvent>
+  ).pipe(
+    filter(
+      (event: StorageEvent) => event.storageArea === this.storageProvider(),
+    ),
+  );
 
-  public constructor() {
-    this.synchronizeStorageBetweenBrowserTabs();
+  public remoteChangeNotification<T>(key: string): Observable<T | null> {
+    return this.remoteStorageChange$.pipe(
+      filter((event: StorageEvent) => event.key === key),
+      map((event: StorageEvent) => event.newValue),
+      distinctUntilChanged(),
+      map((newValue: string | null) => this.parseJsonValue(newValue)),
+    );
+  }
+
+  public getItem<T>(key: string): T | null {
+    return this.readItemValue(key);
   }
 
   public setItem<T>(key: string, value: T): void {
-    const json = JSON.stringify(value);
-    this.storageProvider().setItem(key, json);
-    this.newValue$.next({ key: key, value: value });
+    this.storageProvider().setItem(key, JSON.stringify(value));
+  }
+
+  public hasItem(key: string): boolean {
+    return !!this.getItem(key);
   }
 
   public clearItem(key: string): void {
     this.storageProvider().removeItem(key);
-    this.newValue$.next({ key: key, value: null });
-  }
-
-  public getItem<T>(key: string): Signal<T | null> {
-    return computed(() => {
-      const newValueInStorage = this.newValueSignal();
-
-      if (newValueInStorage?.key === key) {
-        return newValueInStorage.value as T;
-      }
-
-      return this.readItemValue(key);
-    });
-  }
-
-  public hasItem(key: string): Signal<boolean> {
-    return computed<boolean>(() => {
-      return !!this.getItem(key)();
-    });
   }
 
   private readItemValue<T>(key: string): T | null {
-    const json = this.storageProvider().getItem(key);
+    const json: string | null = this.storageProvider().getItem(key);
+
+    return this.parseJsonValue<T>(json);
+  }
+
+  private parseJsonValue<T>(json: string | null): T | null {
     if (!json || !json.length) {
       return null;
     }
 
-    return JSON.parse(json) as T;
+    try {
+      return JSON.parse(json) as T;
+    } catch (e) {
+      // JSON parse exception
+      return null;
+    }
   }
 
   protected abstract storageProvider(): Storage;
-
-  private synchronizeStorageBetweenBrowserTabs(): void {
-    fromEvent(window, 'storage')
-      .pipe(
-        tap((event: Event): void => {
-          if (
-            event instanceof StorageEvent &&
-            event.storageArea === this.storageProvider()
-          ) {
-            this.newValue$.next({
-              key: event.key ?? '',
-              value: event.newValue ? JSON.parse(event.newValue) : null,
-            });
-          }
-        }),
-        takeUntilDestroyed(),
-      )
-      .subscribe();
-  }
 }
