@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { MainLayoutComponent } from '@layouts/main-layout';
+import { MainLayoutComponent } from '@ui/layouts/main-layout';
 import { JobsTabsPageComponent } from '@pages/jobs-tabs-page';
 import { Paths } from './paths';
 import { JobsListPageComponent } from '@pages/jobs-list-page';
