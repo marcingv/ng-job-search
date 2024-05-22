@@ -1,0 +1,7 @@
+<ul>
+  @for (oneTab of tabs(); track oneTab) {
+    <li><a [routerLink]="oneTab.routerLink" routerLinkActive="active">{{ oneTab.name }}</a></li>
+  }
+</ul>
+
+<router-outlet></router-outlet>

@@ -26,6 +26,8 @@
     ],
     "paths": {
       "@core/*": ["src/app/core/*"],
+      "@layouts/*": ["src/app/layouts/*"],
+      "@pages/*": ["src/app/pages/*"],
       "@testing/*": ["src/app/testing/*"],
     }
   },
