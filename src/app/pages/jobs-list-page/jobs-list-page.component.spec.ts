@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { JobsListPageComponent } from './jobs-list-page.component';
-import { JobOffersListService } from '@features/job-offers-data-access';
+import { JobOffersService } from '@features/job-offers-data-access';
 import { DebugElement, signal, Signal } from '@angular/core';
 import { JobOffer } from '@core/types';
 import { JobOffersFactory } from '@testing/job-offers.factory';
@@ -12,7 +12,7 @@ import createSpyObj = jasmine.createSpyObj;
 describe('JobsListPageComponent', (): void => {
   let component: JobsListPageComponent;
   let fixture: ComponentFixture<JobsListPageComponent>;
-  let dataService: SpyObj<JobOffersListService>;
+  let dataService: SpyObj<JobOffersService>;
 
   const offers: JobOffer[] = [
     JobOffersFactory.createInstance(),
@@ -23,7 +23,7 @@ describe('JobsListPageComponent', (): void => {
   const jobOffers = signal(offers);
 
   beforeEach(async () => {
-    dataService = createSpyObj<JobOffersListService>([], {
+    dataService = createSpyObj<JobOffersService>([], {
       get loadingFailed(): Signal<boolean> {
         return loadingFailed;
       },
@@ -37,7 +37,7 @@ describe('JobsListPageComponent', (): void => {
 
     await TestBed.configureTestingModule({
       imports: [JobsListPageComponent],
-      providers: [{ provide: JobOffersListService, useValue: dataService }],
+      providers: [{ provide: JobOffersService, useValue: dataService }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(JobsListPageComponent);

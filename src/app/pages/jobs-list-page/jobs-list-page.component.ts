@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Signal } from '@angular/core';
-import { JobOffersListService } from '@features/job-offers-data-access';
+import { JobOffersService } from '@features/job-offers-data-access';
 import { JobOffer } from '@core/types';
 import { JobOffersListComponent } from '@features/job-offers-list';
 
@@ -16,5 +16,5 @@ export class JobsListPageComponent {
   protected loadingFailed: Signal<boolean> = this.dataService.loadingFailed;
   protected jobOffers: Signal<JobOffer[]> = this.dataService.jobOffers;
 
-  public constructor(private dataService: JobOffersListService) {}
+  public constructor(private dataService: JobOffersService) {}
 }

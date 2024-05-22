@@ -1,5 +1,5 @@
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { JobOffersListService } from './job-offers-list.service';
+import { JobOffersService } from './job-offers.service';
 import { JobOffersApiService } from '@core/api';
 import { delay, of, throwError } from 'rxjs';
 import { JobOffersFactory } from '@testing/job-offers.factory';
@@ -8,8 +8,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import createSpyObj = jasmine.createSpyObj;
 import SpyObj = jasmine.SpyObj;
 
-describe('JobOffersListService', (): void => {
-  let service: JobOffersListService;
+describe('JobOffersService', (): void => {
+  let service: JobOffersService;
   let api: SpyObj<JobOffersApiService>;
 
   const offers: JobOffer[] = [
@@ -25,7 +25,7 @@ describe('JobOffersListService', (): void => {
       providers: [{ provide: JobOffersApiService, useValue: api }],
     });
 
-    service = TestBed.inject(JobOffersListService);
+    service = TestBed.inject(JobOffersService);
   });
 
   it('should be created', (): void => {

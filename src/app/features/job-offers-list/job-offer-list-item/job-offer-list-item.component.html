@@ -23,10 +23,15 @@
   </div>
 
   <div class="px-2">
-    <app-button type="transparent">
+    <app-button
+      type="transparent"
+      [title]="toggleFavouritesBtnTitle()"
+      (clicked)="favouriteOffersService.toggle(offer.id)"
+    >
       <app-star-icon
         [id]="'star-' + offer.id"
-        class="text-lg leading-none"
+        class="text-lg text-gray-500 leading-none"
+        [ngClass]="{ active: isFavourite() }"
       ></app-star-icon>
     </app-button>
   </div>

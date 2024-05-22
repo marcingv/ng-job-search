@@ -5,7 +5,7 @@ import { JobOffer } from '@core/types';
 @Injectable({
   providedIn: 'root',
 })
-export class JobOffersListService {
+export class JobOffersService {
   private isLoadingSignal = signal<boolean>(false);
   private loadingFailedSignal = signal<boolean>(false);
   private jobOffersSignal = signal<JobOffer[]>([]);
