@@ -1,6 +1,15 @@
+@import "@fontsource/firago";
+@import "@fontsource/firago/300.css";
+@import "@fontsource/firago/600.css";
+@import "@fontsource/firago/700.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  @apply font-thin text-base font-firago bg-gray-100;
+}
 
 /**
  * <span class="icon-star"></span>
