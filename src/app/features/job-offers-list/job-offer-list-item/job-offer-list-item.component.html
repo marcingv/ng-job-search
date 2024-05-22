@@ -1,0 +1,16 @@
+<div style="display: flex; gap: 1rem">
+  <img [src]="offer.companyLogo" [alt]="offer.title" style="width: 4rem" />
+
+  <div>
+    <h2>{{ offer.title }}</h2>
+
+    <div style="display: flex; gap: 1rem">
+      <div>Company: {{ offer.companyName }}</div>
+      <div>Reference: {{ offer.reference }}</div>
+    </div>
+  </div>
+
+  <div>
+    <span [id]="'star-' + offer.id" class="icon-star"></span>
+  </div>
+</div>

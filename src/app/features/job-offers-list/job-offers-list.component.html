@@ -1,0 +1,9 @@
+@if (data.length) {
+  <ul>
+    @for (oneOffer of data; track oneOffer) {
+      <li style="margin-bottom: 1rem">
+        <app-job-offer-list-item [offer]="oneOffer"></app-job-offer-list-item>
+      </li>
+    }
+  </ul>
+}

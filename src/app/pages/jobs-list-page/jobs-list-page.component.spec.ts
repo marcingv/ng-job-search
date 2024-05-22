@@ -1,9 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { JobsListPageComponent } from './jobs-list-page.component';
 import { JobOffersListService } from '@features/job-offers-data-access';
-import { signal, Signal } from '@angular/core';
+import { DebugElement, signal, Signal } from '@angular/core';
 import { JobOffer } from '@core/types';
 import { JobOffersFactory } from '@testing/job-offers.factory';
+import { By } from '@angular/platform-browser';
+import { JobOffersListComponent } from '@features/job-offers-list';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
 
@@ -48,6 +50,9 @@ describe('JobsListPageComponent', (): void => {
   });
 
   it('should display offers list', (): void => {
-    expect(jobOffers().length).toBeGreaterThan(0);
+    const listCmp: DebugElement = fixture.debugElement.query(
+      By.directive(JobOffersListComponent),
+    );
+    expect(listCmp).toBeTruthy();
   });
 });
