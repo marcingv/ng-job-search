@@ -10,3 +10,19 @@
 body {
   @apply font-thin text-base font-firago bg-gray-100;
 }
+
+.app-button {
+  @apply p-2 flex items-center rounded disabled:opacity-25;
+}
+
+.app-button-primary {
+  @apply bg-slate-700 hover:bg-slate-800 active:bg-slate-900 text-white;
+}
+
+.app-button-secondary {
+  @apply bg-gray-300 hover:bg-gray-400 active:bg-gray-500 text-gray-700;
+}
+
+.app-button-transparent {
+  @apply hover:bg-gray-100 active:bg-gray-200;
+}

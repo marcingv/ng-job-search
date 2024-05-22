@@ -6,6 +6,7 @@ import { By } from '@angular/platform-browser';
 import { DebugElement, signal } from '@angular/core';
 import { FavouriteJobOffersService } from '@features/job-offers-data-access';
 import { StarIconComponent } from '@ui/icons/star-icon';
+import { ButtonDirective } from '@ui/buttons/directives';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
 
@@ -60,7 +61,7 @@ describe('JobOfferListItemComponent', (): void => {
     expect(icon.attributes['id']).toEqual('star-' + offer.id);
   });
 
-  it('should have active class on favourite offers start icon', () => {
+  it('should have active class on favourite offers star icon', () => {
     isFavouriteSignal.set(true);
     fixture.detectChanges();
 
@@ -73,8 +74,10 @@ describe('JobOfferListItemComponent', (): void => {
   });
 
   it('should toggle favourite on star icon click', () => {
-    const icon: DebugElement = fixture.debugElement.query(By.css('button'));
-    icon.triggerEventHandler('click');
+    const button: DebugElement = fixture.debugElement.query(
+      By.directive(ButtonDirective),
+    );
+    button.triggerEventHandler('click');
 
     expect(dataProvider.toggle).toHaveBeenCalledWith(offer.id);
   });

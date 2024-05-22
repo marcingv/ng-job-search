@@ -1,30 +1,31 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  computed,
   Input,
   OnChanges,
   Signal,
 } from '@angular/core';
 import { JobOffer } from '@core/types';
 import { StarIconComponent } from '@ui/icons/star-icon';
-import { ButtonComponent } from '@ui/buttons/button';
 import { FavouriteJobOffersService } from '@features/job-offers-data-access';
+import { ButtonDirective } from '@ui/buttons/directives';
 import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-job-offer-list-item',
   standalone: true,
-  imports: [StarIconComponent, ButtonComponent, NgClass],
+  imports: [StarIconComponent, ButtonDirective, NgClass],
   templateUrl: './job-offer-list-item.component.html',
   styleUrl: './job-offer-list-item.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class JobOfferListItemComponent implements OnChanges {
+  protected readonly ADD_TO_FAVORITES_LABEL = 'Add to favorites';
+  protected readonly REMOVE_FROM_FAVORITES_LABEL = 'Remove from favorites';
+
   @Input({ required: true }) public offer!: JobOffer;
 
   protected isFavourite!: Signal<boolean>;
-  protected toggleFavouritesBtnTitle!: Signal<string>;
 
   public constructor(
     protected favouriteOffersService: FavouriteJobOffersService,
@@ -32,10 +33,5 @@ export class JobOfferListItemComponent implements OnChanges {
 
   public ngOnChanges(): void {
     this.isFavourite = this.favouriteOffersService.isFavourite(this.offer.id);
-    this.toggleFavouritesBtnTitle = computed(() => {
-      return this.isFavourite()
-        ? 'Remove from favourites'
-        : 'Add to favourites';
-    });
   }
 }
