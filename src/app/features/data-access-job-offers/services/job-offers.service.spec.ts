@@ -50,7 +50,7 @@ describe('JobOffersService', (): void => {
     api.list.and.returnValue(of(freshOffers).pipe(delay(500)));
     expect(service.isLoading()).toBeFalse();
 
-    service.loadData();
+    service.loadData().subscribe();
 
     tick(100);
     expect(service.isLoading()).toBeTrue();
@@ -69,7 +69,7 @@ describe('JobOffersService', (): void => {
     expect(service.loadingFailed()).toBeFalse();
     expect(service.jobOffers().length).toBeGreaterThan(0);
 
-    service.loadData();
+    service.loadData().subscribe();
 
     expect(service.loadingFailed()).toBeTrue();
     expect(service.jobOffers()).toEqual([]);
