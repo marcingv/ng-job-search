@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, Signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  Signal,
+} from '@angular/core';
 import { JobOffersService } from 'src/app/features/data-access-job-offers';
 import { JobOffer } from '@core/types';
 import { JobOffersListComponent } from 'src/app/features/job-offers-list';
@@ -12,10 +17,10 @@ import { JobOffersListComponent } from 'src/app/features/job-offers-list';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class JobsListPageComponent {
+  private readonly dataService: JobOffersService = inject(JobOffersService);
+
   protected isInitialLoadDone: Signal<boolean> =
     this.dataService.isInitialLoadDone;
   protected loadingFailed: Signal<boolean> = this.dataService.loadingFailed;
   protected jobOffers: Signal<JobOffer[]> = this.dataService.jobOffers;
-
-  public constructor(private dataService: JobOffersService) {}
 }

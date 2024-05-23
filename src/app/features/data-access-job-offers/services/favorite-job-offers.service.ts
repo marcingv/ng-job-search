@@ -1,4 +1,11 @@
-import { computed, effect, Injectable, signal, Signal } from '@angular/core';
+import {
+  computed,
+  effect,
+  inject,
+  Injectable,
+  signal,
+  Signal,
+} from '@angular/core';
 import { LocalStorageService } from '@core/storage';
 import { JobOffer, JobOfferId } from '@core/types';
 import { JobOffersService } from 'src/app/features/data-access-job-offers';
@@ -10,6 +17,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 })
 export class FavoriteJobOffersService {
   private readonly STORAGE_KEY = 'favorite-job-offers-ids';
+
+  private readonly storage = inject(LocalStorageService);
+  private readonly jobOffersService = inject(JobOffersService);
 
   public isInitialLoadDone: Signal<boolean> =
     this.jobOffersService.isInitialLoadDone;
@@ -27,10 +37,7 @@ export class FavoriteJobOffersService {
     this.storage.getItem<JobOfferId[]>(this.STORAGE_KEY) ?? [],
   );
 
-  public constructor(
-    private storage: LocalStorageService,
-    private jobOffersService: JobOffersService,
-  ) {
+  public constructor() {
     this.enableStorageSynchronization();
   }
 

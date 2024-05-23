@@ -1,4 +1,4 @@
-import { Injectable, Signal, signal } from '@angular/core';
+import { inject, Injectable, Signal, signal } from '@angular/core';
 import { JobOffersApiService } from '@core/api';
 import { JobOffer } from '@core/types';
 import { catchError, finalize, Observable, of, tap } from 'rxjs';
@@ -7,12 +7,14 @@ import { catchError, finalize, Observable, of, tap } from 'rxjs';
   providedIn: 'root',
 })
 export class JobOffersService {
+  private readonly api: JobOffersApiService = inject(JobOffersApiService);
+
   private isInitialLoadDoneSignal = signal<boolean>(false);
   private isLoadingSignal = signal<boolean>(false);
   private loadingFailedSignal = signal<boolean>(false);
   private jobOffersSignal = signal<JobOffer[]>([]);
 
-  public constructor(private api: JobOffersApiService) {
+  public constructor() {
     /**
      * Loading data immediately upon service creation
      * in order to deliver data as fast as possible

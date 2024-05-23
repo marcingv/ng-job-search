@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { JobOffer, JobOfferDetails, JobOfferId } from '@core/types';
@@ -10,7 +10,7 @@ export class JobOffersApiService {
   private readonly LIST_ENDPOINT = '/jobs';
   private readonly DETAILS_ENDPOINT = '/jobs/{jobId}';
 
-  public constructor(private http: HttpClient) {}
+  private readonly http: HttpClient = inject(HttpClient);
 
   public list(): Observable<JobOffer[]> {
     return this.http.get<JobOffer[]>(this.LIST_ENDPOINT);
