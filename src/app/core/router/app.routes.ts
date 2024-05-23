@@ -6,7 +6,10 @@ import { JobsListPageComponent } from '@pages/jobs-list-page';
 import { FavoriteJobsListPageComponent } from 'src/app/pages/favorite-jobs-list-page';
 import { PathParams } from '@core/router/path-params';
 import { JobDetailsPageComponent } from '@pages/job-details-page/job-details-page.component';
-import { jobOfferDetailsResolver } from '@features/job-offers-data-access';
+import {
+  isFavoriteJobOfferGuard,
+  jobOfferDetailsResolver,
+} from '@features/job-offers-data-access';
 
 export const routes: Routes = [
   {
@@ -49,6 +52,11 @@ export const routes: Routes = [
               {
                 path: `:${PathParams.JOB_ID}`,
                 component: JobDetailsPageComponent,
+                canActivate: [
+                  isFavoriteJobOfferGuard({
+                    onFailureRedirect: [Paths.ROOT, Paths.FAVORITES],
+                  }),
+                ],
                 resolve: {
                   details: jobOfferDetailsResolver(),
                 },

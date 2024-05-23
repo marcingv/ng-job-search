@@ -14,14 +14,14 @@ export class FavoriteJobOffersService {
   public isLoading: Signal<boolean> = this.jobOffersService.isLoading;
   public loadingFailed: Signal<boolean> = this.jobOffersService.loadingFailed;
   public favorites: Signal<JobOffer[]> = computed(() => {
-    const favIds: JobOfferId[] = this.favoritesIds();
+    const favIds: JobOfferId[] = this.favoritesIdsSignal();
 
     return this.jobOffersService
       .jobOffers()
       .filter((oneOffer: JobOffer) => favIds.includes(oneOffer.id));
   });
 
-  private favoritesIds = signal<JobOfferId[]>(
+  private favoritesIdsSignal = signal<JobOfferId[]>(
     this.storage.getItem<JobOfferId[]>(this.STORAGE_KEY) ?? [],
   );
 
@@ -32,14 +32,18 @@ export class FavoriteJobOffersService {
     this.enableStorageSynchronization();
   }
 
+  public get favoritesIds(): Signal<JobOfferId[]> {
+    return this.favoritesIdsSignal.asReadonly();
+  }
+
   public isFavorite(id: JobOfferId): Signal<boolean> {
-    return computed(() => this.favoritesIds().includes(id));
+    return computed(() => this.favoritesIdsSignal().includes(id));
   }
 
   public toggle(id: JobOfferId): void {
-    const idx: JobOfferId = this.favoritesIds().indexOf(id);
+    const idx: JobOfferId = this.favoritesIdsSignal().indexOf(id);
 
-    this.favoritesIds.update((currIds: JobOfferId[]) => {
+    this.favoritesIdsSignal.update((currIds: JobOfferId[]) => {
       const newIds: JobOfferId[] = currIds.slice();
 
       if (idx >= 0) {
@@ -56,7 +60,7 @@ export class FavoriteJobOffersService {
 
   private enableStorageSynchronization(): void {
     effect(() => {
-      const favIds: JobOfferId[] = this.favoritesIds();
+      const favIds: JobOfferId[] = this.favoritesIdsSignal();
 
       this.storage.setItem(this.STORAGE_KEY, favIds);
     });
@@ -66,7 +70,7 @@ export class FavoriteJobOffersService {
       .pipe(
         tap((remoteFavIds: JobOfferId[] | null) => {
           if (remoteFavIds) {
-            this.favoritesIds.set(remoteFavIds);
+            this.favoritesIdsSignal.set(remoteFavIds);
           }
         }),
         takeUntilDestroyed(),
