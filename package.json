@@ -8,7 +8,9 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test:ci": "ng test --browsers ChromeHeadless --watch false",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "docker-prod-build": "docker build --file ./prod.Dockerfile --tag marcingv/ng-job-search:latest .",
+    "docker-prod-publish": "docker push marcingv/ng-job-search:latest"
   },
   "private": true,
   "dependencies": {
