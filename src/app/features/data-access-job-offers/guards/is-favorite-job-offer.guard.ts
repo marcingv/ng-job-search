@@ -1,5 +1,10 @@
-import { ActivatedRouteSnapshot, CanActivateFn, Router } from '@angular/router';
-import { Observable, of, tap } from 'rxjs';
+import {
+  ActivatedRouteSnapshot,
+  CanActivateFn,
+  Router,
+  UrlTree,
+} from '@angular/router';
+import { map, Observable, of } from 'rxjs';
 import { PathParams } from '@core/router/path-params';
 import { JobOfferId } from '@core/types';
 import { inject } from '@angular/core';
@@ -13,7 +18,7 @@ export type IsFavoriteJobOfferGuardConfig = {
 export const isFavoriteJobOfferGuard: (
   config: IsFavoriteJobOfferGuardConfig,
 ) => CanActivateFn = (config: IsFavoriteJobOfferGuardConfig): CanActivateFn => {
-  return (route: ActivatedRouteSnapshot): Observable<boolean> => {
+  return (route: ActivatedRouteSnapshot): Observable<true | UrlTree> => {
     const router: Router = inject(Router);
     const favoritesService: FavoriteJobOffersService = inject(
       FavoriteJobOffersService,
@@ -22,7 +27,7 @@ export const isFavoriteJobOfferGuard: (
     const idParam: string | null = route.paramMap.get(PathParams.JOB_ID);
     const jobId: JobOfferId | null = idParam ? +idParam : null;
     if (!jobId || isNaN(jobId)) {
-      return guardAccessFailed(router, config);
+      return of(guardAccessFailed(router, config));
     }
 
     return allowAccessIfIsFavorite(jobId, favoritesService, router, config);
@@ -34,16 +39,18 @@ const allowAccessIfIsFavorite = (
   favoritesService: FavoriteJobOffersService,
   router: Router,
   config: IsFavoriteJobOfferGuardConfig,
-): Observable<boolean> => {
+): Observable<true | UrlTree> => {
   const isFavourite$: Observable<boolean> = toObservable(
     favoritesService.isFavorite(jobId),
   );
 
   return isFavourite$.pipe(
-    tap((isFavorite: boolean) => {
+    map((isFavorite: boolean) => {
       if (!isFavorite) {
-        guardAccessFailed(router, config);
+        return guardAccessFailed(router, config);
       }
+
+      return true;
     }),
   );
 };
@@ -51,8 +58,6 @@ const allowAccessIfIsFavorite = (
 const guardAccessFailed = (
   router: Router,
   config: IsFavoriteJobOfferGuardConfig,
-): Observable<false> => {
-  router.navigate(config.onFailureRedirect);
-
-  return of(false);
+): UrlTree => {
+  return router.createUrlTree(config.onFailureRedirect);
 };
