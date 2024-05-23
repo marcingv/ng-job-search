@@ -1,5 +1,52 @@
 <app-back-button></app-back-button>
 
-<p>job-details-page works!</p>
+<div class="flex gap-4 items-center mt-8">
+  <img
+    [src]="details.companyLogo"
+    [alt]="details.companyName"
+    class="size-28 bg-gray-100 rounded border border-gray-100"
+  />
 
-{{ details }}
+  <div class="flex-1">
+    <h2 class="text-3xl mb-4">{{ details.title }}</h2>
+
+    @if (tags.length > 0) {
+      <ul class="flex gap-2 text-sm">
+        @for (oneTag of tags; track oneTag) {
+          <li
+            class="py-1 px-2 bg-slate-500 text-white rounded"
+            [innerHTML]="oneTag"
+          ></li>
+        }
+      </ul>
+    }
+  </div>
+</div>
+
+<div class="mt-4">
+  <div>
+    <span class="font-normal">Company:</span>
+    {{ details.companyName }}
+  </div>
+
+  <div>
+    <span class="font-normal">Publish date:</span>
+    {{ details.publishDate | date: "shortDate" }}
+  </div>
+
+  <div>
+    <span class="font-normal">Location:</span>
+    {{ details.location }}
+  </div>
+
+  <div>
+    <span class="font-normal">Reference:</span>
+    {{ details.reference }}
+  </div>
+
+  <section class="html-description mt-4">
+    <h2 class="font-normal text-lg">Description:</h2>
+
+    <div [innerHTML]="details.description"></div>
+  </section>
+</div>

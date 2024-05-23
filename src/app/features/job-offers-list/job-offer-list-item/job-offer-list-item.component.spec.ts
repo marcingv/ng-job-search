@@ -56,7 +56,7 @@ describe('JobOfferListItemComponent', (): void => {
     const logo: DebugElement = fixture.debugElement.query(By.css('img'));
     expect(logo).toBeTruthy();
     expect(logo.attributes['src']).toEqual(offer.companyLogo);
-    expect(logo.attributes['alt']).toEqual(offer.title);
+    expect(logo.attributes['alt']).toEqual(offer.companyName);
 
     const icon: DebugElement = fixture.debugElement.query(By.css('.icon-star'));
     expect(icon).toBeTruthy();
