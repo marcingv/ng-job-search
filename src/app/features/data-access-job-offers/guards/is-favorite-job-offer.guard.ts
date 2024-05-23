@@ -3,7 +3,7 @@ import { Observable, of, tap } from 'rxjs';
 import { PathParams } from '@core/router/path-params';
 import { JobOfferId } from '@core/types';
 import { inject } from '@angular/core';
-import { FavoriteJobOffersService } from '@features/job-offers-data-access';
+import { FavoriteJobOffersService } from 'src/app/features/data-access-job-offers';
 import { toObservable } from '@angular/core/rxjs-interop';
 
 export type IsFavoriteJobOfferGuardConfig = {

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Signal } from '@angular/core';
-import { JobOffersService } from '@features/job-offers-data-access';
+import { JobOffersService } from 'src/app/features/data-access-job-offers';
 import { JobOffer } from '@core/types';
-import { JobOffersListComponent } from '@features/job-offers-list';
+import { JobOffersListComponent } from 'src/app/features/job-offers-list';
 
 @Component({
   selector: 'app-jobs-list-page',

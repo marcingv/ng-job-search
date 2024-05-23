@@ -4,7 +4,7 @@ import { JobOffer } from '@core/types';
 import { JobOffersFactory } from '@testing/job-offers.factory';
 import { By } from '@angular/platform-browser';
 import { DebugElement, signal } from '@angular/core';
-import { FavoriteJobOffersService } from '@features/job-offers-data-access';
+import { FavoriteJobOffersService } from 'src/app/features/data-access-job-offers';
 import { StarIconComponent } from '@ui/icons/star-icon';
 import { ButtonDirective } from '@ui/buttons/directives';
 import { provideRouter } from '@angular/router';

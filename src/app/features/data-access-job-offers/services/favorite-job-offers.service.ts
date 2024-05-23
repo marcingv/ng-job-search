@@ -1,7 +1,7 @@
 import { computed, effect, Injectable, signal, Signal } from '@angular/core';
 import { LocalStorageService } from '@core/storage';
 import { JobOffer, JobOfferId } from '@core/types';
-import { JobOffersService } from '@features/job-offers-data-access';
+import { JobOffersService } from 'src/app/features/data-access-job-offers';
 import { tap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 

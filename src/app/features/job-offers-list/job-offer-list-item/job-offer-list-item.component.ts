@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { JobOffer } from '@core/types';
 import { StarIconComponent } from '@ui/icons/star-icon';
-import { FavoriteJobOffersService } from '@features/job-offers-data-access';
+import { FavoriteJobOffersService } from 'src/app/features/data-access-job-offers';
 import { ButtonDirective } from '@ui/buttons/directives';
 import { NgClass } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';

@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FavoriteJobsListPageComponent } from './favorite-jobs-list-page.component';
-import { FavoriteJobOffersService } from '@features/job-offers-data-access';
+import { FavoriteJobOffersService } from 'src/app/features/data-access-job-offers';
 import { JobOffer, JobOfferId } from '@core/types';
 import { JobOffersFactory } from '@testing/job-offers.factory';
 import {

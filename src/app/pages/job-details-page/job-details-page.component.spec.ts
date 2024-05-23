@@ -10,7 +10,7 @@ import { DatePipe } from '@angular/common';
 import { JobOfferDetails } from '@core/types';
 import { JobOfferDetailsFactory } from '@testing/job-offer-details.factory';
 import { SanitizeHtmlPipe } from '@ui/pipes';
-import { ResolvedJobOfferDetails } from '@features/job-offers-data-access';
+import { ResolvedJobOfferDetails } from 'src/app/features/data-access-job-offers';
 
 describe('JobDetailsPageComponent', () => {
   let component: JobDetailsPageComponent;

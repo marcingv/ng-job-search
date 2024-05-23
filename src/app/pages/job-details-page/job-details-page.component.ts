@@ -3,7 +3,7 @@ import { BackButtonComponent } from '@ui/buttons/components/back-button';
 import { DatePipe } from '@angular/common';
 import { ChipsListComponent } from '@ui/chips/chips-list';
 import { SanitizeHtmlPipe } from '@ui/pipes';
-import { ResolvedJobOfferDetails } from '@features/job-offers-data-access';
+import { ResolvedJobOfferDetails } from 'src/app/features/data-access-job-offers';
 import { JobOfferDetailsComponent } from '@features/job-offer-details/job-offer-details.component';
 import { ErrorPlaceholderComponent } from '@ui/placeholders/error-placeholder';
 

@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { JobsListPageComponent } from './jobs-list-page.component';
-import { JobOffersService } from '@features/job-offers-data-access';
+import { JobOffersService } from 'src/app/features/data-access-job-offers';
 import { DebugElement, NO_ERRORS_SCHEMA, signal, Signal } from '@angular/core';
 import { JobOffer } from '@core/types';
 import { JobOffersFactory } from '@testing/job-offers.factory';

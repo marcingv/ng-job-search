@@ -4,7 +4,7 @@ import { JobOffersApiService } from '@core/api';
 import { PathParams } from '@core/router/path-params';
 import { JobOfferDetails, JobOfferId } from '@core/types';
 import { catchError, map, Observable, of } from 'rxjs';
-import { ResolvedJobOfferDetails } from '@features/job-offers-data-access';
+import { ResolvedJobOfferDetails } from 'src/app/features/data-access-job-offers';
 import { HttpErrorResponse } from '@angular/common/http';
 
 const JOB_OFFER_NOT_FOUND_MESSAGE = 'Job offer does not exist.';

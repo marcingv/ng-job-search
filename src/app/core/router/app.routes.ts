@@ -9,7 +9,7 @@ import { JobDetailsPageComponent } from '@pages/job-details-page/job-details-pag
 import {
   isFavoriteJobOfferGuard,
   jobOfferDetailsResolver,
-} from '@features/job-offers-data-access';
+} from 'src/app/features/data-access-job-offers';
 
 const OFFERS_LIST_PAGE: Route = {
   path: Paths.JOB_OFFERS,

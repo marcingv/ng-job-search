@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { FavoriteJobOffersService } from './favorite-job-offers.service';
 import { LocalStorageService } from '@core/storage';
-import { JobOffersService } from '@features/job-offers-data-access';
+import { JobOffersService } from 'src/app/features/data-access-job-offers';
 import { JobOffer, JobOfferId } from '@core/types';
 import { JobOffersFactory } from '@testing/job-offers.factory';
 import { Subject } from 'rxjs';
