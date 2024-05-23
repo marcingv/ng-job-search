@@ -8,20 +8,20 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Injectable({
   providedIn: 'root',
 })
-export class FavouriteJobOffersService {
-  private readonly STORAGE_KEY = 'favourite-job-offers-ids';
+export class FavoriteJobOffersService {
+  private readonly STORAGE_KEY = 'favorite-job-offers-ids';
 
   public isLoading: Signal<boolean> = this.jobOffersService.isLoading;
   public loadingFailed: Signal<boolean> = this.jobOffersService.loadingFailed;
-  public favourites: Signal<JobOffer[]> = computed(() => {
-    const favIds: JobOfferId[] = this.favouritesIds();
+  public favorites: Signal<JobOffer[]> = computed(() => {
+    const favIds: JobOfferId[] = this.favoritesIds();
 
     return this.jobOffersService
       .jobOffers()
       .filter((oneOffer: JobOffer) => favIds.includes(oneOffer.id));
   });
 
-  private favouritesIds = signal<JobOfferId[]>(
+  private favoritesIds = signal<JobOfferId[]>(
     this.storage.getItem<JobOfferId[]>(this.STORAGE_KEY) ?? [],
   );
 
@@ -32,14 +32,14 @@ export class FavouriteJobOffersService {
     this.enableStorageSynchronization();
   }
 
-  public isFavourite(id: JobOfferId): Signal<boolean> {
-    return computed(() => this.favouritesIds().includes(id));
+  public isFavorite(id: JobOfferId): Signal<boolean> {
+    return computed(() => this.favoritesIds().includes(id));
   }
 
   public toggle(id: JobOfferId): void {
-    const idx: JobOfferId = this.favouritesIds().indexOf(id);
+    const idx: JobOfferId = this.favoritesIds().indexOf(id);
 
-    this.favouritesIds.update((currIds: JobOfferId[]) => {
+    this.favoritesIds.update((currIds: JobOfferId[]) => {
       const newIds: JobOfferId[] = currIds.slice();
 
       if (idx >= 0) {
@@ -56,7 +56,7 @@ export class FavouriteJobOffersService {
 
   private enableStorageSynchronization(): void {
     effect(() => {
-      const favIds: JobOfferId[] = this.favouritesIds();
+      const favIds: JobOfferId[] = this.favoritesIds();
 
       this.storage.setItem(this.STORAGE_KEY, favIds);
     });
@@ -66,7 +66,7 @@ export class FavouriteJobOffersService {
       .pipe(
         tap((remoteFavIds: JobOfferId[] | null) => {
           if (remoteFavIds) {
-            this.favouritesIds.set(remoteFavIds);
+            this.favoritesIds.set(remoteFavIds);
           }
         }),
         takeUntilDestroyed(),

@@ -4,7 +4,7 @@ import { JobOffer } from '@core/types';
 import { JobOffersFactory } from '@testing/job-offers.factory';
 import { By } from '@angular/platform-browser';
 import { DebugElement, signal } from '@angular/core';
-import { FavouriteJobOffersService } from '@features/job-offers-data-access';
+import { FavoriteJobOffersService } from '@features/job-offers-data-access';
 import { StarIconComponent } from '@ui/icons/star-icon';
 import { ButtonDirective } from '@ui/buttons/directives';
 import { provideRouter } from '@angular/router';
@@ -14,25 +14,25 @@ import createSpyObj = jasmine.createSpyObj;
 describe('JobOfferListItemComponent', (): void => {
   let component: JobOfferListItemComponent;
   let fixture: ComponentFixture<JobOfferListItemComponent>;
-  let dataProvider: SpyObj<FavouriteJobOffersService>;
+  let dataProvider: SpyObj<FavoriteJobOffersService>;
 
   const offer: JobOffer = JobOffersFactory.createInstance();
-  const isFavouriteSignal = signal<boolean>(false);
+  const isFavoriteSignal = signal<boolean>(false);
 
   beforeEach(async () => {
-    dataProvider = createSpyObj<FavouriteJobOffersService>([
-      'isFavourite',
+    dataProvider = createSpyObj<FavoriteJobOffersService>([
+      'isFavorite',
       'toggle',
     ]);
-    dataProvider.isFavourite.and.returnValue(isFavouriteSignal);
+    dataProvider.isFavorite.and.returnValue(isFavoriteSignal);
 
-    isFavouriteSignal.set(false);
+    isFavoriteSignal.set(false);
 
     await TestBed.configureTestingModule({
       imports: [JobOfferListItemComponent],
       providers: [
         provideRouter([]),
-        { provide: FavouriteJobOffersService, useValue: dataProvider },
+        { provide: FavoriteJobOffersService, useValue: dataProvider },
       ],
     }).compileComponents();
 
@@ -63,8 +63,8 @@ describe('JobOfferListItemComponent', (): void => {
     expect(icon.attributes['id']).toEqual('star-' + offer.id);
   });
 
-  it('should have active class on favourite offers star icon', () => {
-    isFavouriteSignal.set(true);
+  it('should have active class on favorite offers star icon', () => {
+    isFavoriteSignal.set(true);
     fixture.detectChanges();
 
     const icon: DebugElement = fixture.debugElement.query(
@@ -75,7 +75,7 @@ describe('JobOfferListItemComponent', (): void => {
     expect(icon.classes['active']).toBeTruthy();
   });
 
-  it('should toggle favourite on star icon click', () => {
+  it('should toggle favorite on star icon click', () => {
     const button: DebugElement = fixture.debugElement.query(
       By.directive(ButtonDirective),
     );

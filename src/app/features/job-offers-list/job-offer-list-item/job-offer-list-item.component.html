@@ -37,13 +37,13 @@
         appButton="transparent"
         class="text-gray-400"
         [title]="
-          isFavourite() ? REMOVE_FROM_FAVORITES_LABEL : ADD_TO_FAVORITES_LABEL
+          isFavorite() ? REMOVE_FROM_FAVORITES_LABEL : ADD_TO_FAVORITES_LABEL
         "
-        (click)="favouriteOffersService.toggle(offer.id)"
+        (click)="favoriteOffersService.toggle(offer.id)"
       >
         <app-star-icon
           [id]="'star-' + offer.id"
-          [ngClass]="{ active: isFavourite() }"
+          [ngClass]="{ active: isFavorite() }"
         ></app-star-icon>
       </button>
     </div>

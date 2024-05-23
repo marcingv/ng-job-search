@@ -3,7 +3,7 @@ import { MainLayoutComponent } from '@ui/layouts/main-layout';
 import { JobsTabsPageComponent } from '@pages/jobs-tabs-page';
 import { Paths } from './paths';
 import { JobsListPageComponent } from '@pages/jobs-list-page';
-import { FavouriteJobsListPageComponent } from '@pages/favourite-jobs-list-page';
+import { FavoriteJobsListPageComponent } from 'src/app/pages/favorite-jobs-list-page';
 import { PathParams } from '@core/router/path-params';
 import { JobDetailsPageComponent } from '@pages/job-details-page/job-details-page.component';
 import { jobOfferDetailsResolver } from '@features/job-offers-data-access';
@@ -18,7 +18,7 @@ export const routes: Routes = [
         component: JobsTabsPageComponent,
         children: [
           {
-            path: Paths.JOBS,
+            path: Paths.JOB_OFFERS,
             children: [
               {
                 path: '',
@@ -39,12 +39,12 @@ export const routes: Routes = [
             ],
           },
           {
-            path: Paths.FAVOURITES,
+            path: Paths.FAVORITES,
             children: [
               {
                 path: '',
                 pathMatch: 'full',
-                component: FavouriteJobsListPageComponent,
+                component: FavoriteJobsListPageComponent,
               },
               {
                 path: `:${PathParams.JOB_ID}`,
@@ -61,7 +61,7 @@ export const routes: Routes = [
           },
           {
             path: Paths.WILDCARD,
-            redirectTo: Paths.JOBS,
+            redirectTo: Paths.JOB_OFFERS,
           },
         ],
       },

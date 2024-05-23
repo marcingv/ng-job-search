@@ -1,6 +1,6 @@
 export enum Paths {
   ROOT = '/',
-  JOBS = 'jobs',
-  FAVOURITES = 'favourites',
+  JOB_OFFERS = 'job-offers',
+  FAVORITES = 'favorite',
   WILDCARD = '**',
 }
