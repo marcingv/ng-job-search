@@ -1,42 +1,46 @@
-import { Injectable, Signal, signal } from '@angular/core';
+import { inject, Injectable, Signal, signal } from '@angular/core';
 import { JobOffersApiService } from '@core/api';
 import { JobOffer } from '@core/types';
-import { finalize } from 'rxjs';
+import { catchError, finalize, Observable, of, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class JobOffersService {
+  private readonly api: JobOffersApiService = inject(JobOffersApiService);
+
   private isInitialLoadDoneSignal = signal<boolean>(false);
   private isLoadingSignal = signal<boolean>(false);
   private loadingFailedSignal = signal<boolean>(false);
   private jobOffersSignal = signal<JobOffer[]>([]);
 
-  public constructor(private api: JobOffersApiService) {
-    this.loadData();
+  public constructor() {
+    /**
+     * Loading data immediately upon service creation
+     * in order to deliver data as fast as possible
+     * without the need for triggering a manual load.
+     */
+    this.loadData().subscribe();
   }
 
-  public loadData(): void {
+  public loadData(): Observable<JobOffer[]> {
     this.isLoadingSignal.set(true);
     this.loadingFailedSignal.set(false);
 
-    this.api
-      .list()
-      .pipe(
-        finalize(() => {
-          this.isLoadingSignal.set(false);
-          if (!this.isInitialLoadDoneSignal()) {
-            this.isInitialLoadDoneSignal.set(true);
-          }
-        }),
-      )
-      .subscribe({
-        next: (data: JobOffer[]) => this.jobOffersSignal.set(data),
-        error: () => {
-          this.jobOffersSignal.set([]);
-          this.loadingFailedSignal.set(true);
-        },
-      });
+    return this.api.list().pipe(
+      catchError(() => {
+        this.loadingFailedSignal.set(true);
+
+        return of([]);
+      }),
+      tap((data: JobOffer[]) => this.jobOffersSignal.set(data)),
+      finalize(() => {
+        this.isLoadingSignal.set(false);
+        if (!this.isInitialLoadDoneSignal()) {
+          this.isInitialLoadDoneSignal.set(true);
+        }
+      }),
+    );
   }
 
   public get isLoading(): Signal<boolean> {

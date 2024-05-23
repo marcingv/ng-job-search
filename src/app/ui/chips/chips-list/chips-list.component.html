@@ -1,5 +1,5 @@
 @if (data.length > 0) {
-  <ul class="flex gap-2 text-sm">
+  <ul class="flex flex-wrap gap-2 text-xs sm:text-sm">
     @for (oneChip of data; track oneChip) {
       <li>
         <app-chip-item [text]="oneChip"></app-chip-item>

@@ -7,6 +7,7 @@ import { FavoriteJobsListPageComponent } from 'src/app/pages/favorite-jobs-list-
 import { PathParams } from '@core/router/path-params';
 import { JobDetailsPageComponent } from '@pages/job-details-page/job-details-page.component';
 import {
+  initialJobOffersLoadGuard,
   isFavoriteJobOfferGuard,
   jobOfferDetailsResolver,
 } from 'src/app/features/data-access-job-offers';
@@ -18,6 +19,7 @@ const OFFERS_LIST_PAGE: Route = {
       path: '',
       pathMatch: 'full',
       component: JobsListPageComponent,
+      canActivate: [initialJobOffersLoadGuard],
     },
     {
       path: `:${PathParams.JOB_ID}`,
@@ -40,6 +42,7 @@ const FAVORITES_LIST_PAGE: Route = {
       path: '',
       pathMatch: 'full',
       component: FavoriteJobsListPageComponent,
+      canActivate: [initialJobOffersLoadGuard],
     },
     {
       path: `:${PathParams.JOB_ID}`,
