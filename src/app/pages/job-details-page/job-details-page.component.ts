@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { BackButtonComponent } from '@ui/buttons/components/back-button';
+import { JobOfferDetails } from '@core/types';
 
 @Component({
   selector: 'app-job-details-page',
@@ -9,4 +10,6 @@ import { BackButtonComponent } from '@ui/buttons/components/back-button';
   styleUrl: './job-details-page.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class JobDetailsPageComponent {}
+export class JobDetailsPageComponent {
+  @Input({ required: true }) public details!: JobOfferDetails;
+}

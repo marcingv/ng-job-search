@@ -6,6 +6,7 @@ import { JobsListPageComponent } from '@pages/jobs-list-page';
 import { FavouriteJobsListPageComponent } from '@pages/favourite-jobs-list-page';
 import { PathParams } from '@core/router/path-params';
 import { JobDetailsPageComponent } from '@pages/job-details-page/job-details-page.component';
+import { jobOfferDetailsResolver } from '@features/job-offers-data-access';
 
 export const routes: Routes = [
   {
@@ -27,6 +28,9 @@ export const routes: Routes = [
               {
                 path: `:${PathParams.JOB_ID}`,
                 component: JobDetailsPageComponent,
+                resolve: {
+                  details: jobOfferDetailsResolver(),
+                },
               },
               {
                 path: Paths.WILDCARD,
@@ -45,6 +49,9 @@ export const routes: Routes = [
               {
                 path: `:${PathParams.JOB_ID}`,
                 component: JobDetailsPageComponent,
+                resolve: {
+                  details: jobOfferDetailsResolver(),
+                },
               },
               {
                 path: Paths.WILDCARD,
