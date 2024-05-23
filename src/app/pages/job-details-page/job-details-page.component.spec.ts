@@ -5,6 +5,7 @@ import { By } from '@angular/platform-browser';
 import { DatePipe } from '@angular/common';
 import { JobOfferDetails } from '@core/types';
 import { JobOfferDetailsFactory } from '@testing/job-offer-details.factory';
+import { SanitizeHtmlPipe } from '@ui/pipes';
 
 describe('JobDetailsPageComponent', () => {
   let component: JobDetailsPageComponent;
@@ -15,7 +16,7 @@ describe('JobDetailsPageComponent', () => {
   beforeEach(async () => {
     await TestBed.overrideComponent(JobDetailsPageComponent, {
       set: {
-        imports: [DatePipe],
+        imports: [DatePipe, SanitizeHtmlPipe],
         schemas: [NO_ERRORS_SCHEMA],
       },
     })

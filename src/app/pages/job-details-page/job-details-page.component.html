@@ -40,6 +40,6 @@
   <section class="html-description mt-4">
     <h2 class="font-normal text-lg">Description:</h2>
 
-    <div [innerHTML]="details.description"></div>
+    <div [innerHTML]="details.description | sanitizeHtml"></div>
   </section>
 </div>
