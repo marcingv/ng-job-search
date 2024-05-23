@@ -4,33 +4,35 @@ import { JobOffer } from '@core/types';
 import { JobOffersFactory } from '@testing/job-offers.factory';
 import { By } from '@angular/platform-browser';
 import { DebugElement, signal } from '@angular/core';
-import { FavouriteJobOffersService } from '@features/job-offers-data-access';
+import { FavoriteJobOffersService } from 'src/app/features/data-access-job-offers';
 import { StarIconComponent } from '@ui/icons/star-icon';
 import { ButtonDirective } from '@ui/buttons/directives';
+import { provideRouter } from '@angular/router';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
 
 describe('JobOfferListItemComponent', (): void => {
   let component: JobOfferListItemComponent;
   let fixture: ComponentFixture<JobOfferListItemComponent>;
-  let dataProvider: SpyObj<FavouriteJobOffersService>;
+  let dataProvider: SpyObj<FavoriteJobOffersService>;
 
   const offer: JobOffer = JobOffersFactory.createInstance();
-  const isFavouriteSignal = signal<boolean>(false);
+  const isFavoriteSignal = signal<boolean>(false);
 
   beforeEach(async () => {
-    dataProvider = createSpyObj<FavouriteJobOffersService>([
-      'isFavourite',
+    dataProvider = createSpyObj<FavoriteJobOffersService>([
+      'isFavorite',
       'toggle',
     ]);
-    dataProvider.isFavourite.and.returnValue(isFavouriteSignal);
+    dataProvider.isFavorite.and.returnValue(isFavoriteSignal);
 
-    isFavouriteSignal.set(false);
+    isFavoriteSignal.set(false);
 
     await TestBed.configureTestingModule({
       imports: [JobOfferListItemComponent],
       providers: [
-        { provide: FavouriteJobOffersService, useValue: dataProvider },
+        provideRouter([]),
+        { provide: FavoriteJobOffersService, useValue: dataProvider },
       ],
     }).compileComponents();
 
@@ -54,15 +56,15 @@ describe('JobOfferListItemComponent', (): void => {
     const logo: DebugElement = fixture.debugElement.query(By.css('img'));
     expect(logo).toBeTruthy();
     expect(logo.attributes['src']).toEqual(offer.companyLogo);
-    expect(logo.attributes['alt']).toEqual(offer.title);
+    expect(logo.attributes['alt']).toEqual(offer.companyName);
 
     const icon: DebugElement = fixture.debugElement.query(By.css('.icon-star'));
     expect(icon).toBeTruthy();
     expect(icon.attributes['id']).toEqual('star-' + offer.id);
   });
 
-  it('should have active class on favourite offers star icon', () => {
-    isFavouriteSignal.set(true);
+  it('should have active class on favorite offers star icon', () => {
+    isFavoriteSignal.set(true);
     fixture.detectChanges();
 
     const icon: DebugElement = fixture.debugElement.query(
@@ -73,12 +75,19 @@ describe('JobOfferListItemComponent', (): void => {
     expect(icon.classes['active']).toBeTruthy();
   });
 
-  it('should toggle favourite on star icon click', () => {
+  it('should toggle favorite on star icon click', () => {
     const button: DebugElement = fixture.debugElement.query(
       By.directive(ButtonDirective),
     );
     button.triggerEventHandler('click');
 
     expect(dataProvider.toggle).toHaveBeenCalledWith(offer.id);
+  });
+
+  it('should render the link to details page', () => {
+    const detailsLink: DebugElement = fixture.debugElement.query(By.css('a'));
+
+    expect(detailsLink).toBeTruthy();
+    expect(detailsLink.attributes['href']).toContain(`/${offer.id}`);
   });
 });

@@ -1,0 +1,14 @@
+:host ::ng-deep .html-description .section,
+:host ::ng-deep .html-description section,
+:host ::ng-deep .html-description p
+{
+  @apply mb-4;
+}
+
+:host ::ng-deep .html-description h2 {
+  @apply font-normal text-xl my-4;
+}
+
+:host ::ng-deep .html-description ul {
+  @apply list-disc ms-6 mb-4;
+}

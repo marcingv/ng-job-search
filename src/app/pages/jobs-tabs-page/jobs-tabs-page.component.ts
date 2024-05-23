@@ -14,11 +14,11 @@ export class JobsTabsPageComponent {
   protected tabs = signal<Array<{ name: string; routerLink: string[] }>>([
     {
       name: 'Jobs',
-      routerLink: [Paths.ROOT, Paths.JOBS],
+      routerLink: [Paths.ROOT, Paths.JOB_OFFERS],
     },
     {
-      name: 'Favourites',
-      routerLink: [Paths.ROOT, Paths.FAVOURITES],
+      name: 'Favorites',
+      routerLink: [Paths.ROOT, Paths.FAVORITES],
     },
   ]).asReadonly();
 }

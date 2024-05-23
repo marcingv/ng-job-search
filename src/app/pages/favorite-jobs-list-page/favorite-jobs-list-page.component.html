@@ -2,6 +2,7 @@
   <app-job-offers-list
     [loadingFailed]="loadingFailed()"
     [data]="jobOffers()"
-    emptyMessage="No job offers available."
+    [showActions]="false"
+    emptyMessage="No favorites selected."
   ></app-job-offers-list>
 }

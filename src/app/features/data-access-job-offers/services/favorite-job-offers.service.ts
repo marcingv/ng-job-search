@@ -1,27 +1,29 @@
 import { computed, effect, Injectable, signal, Signal } from '@angular/core';
 import { LocalStorageService } from '@core/storage';
 import { JobOffer, JobOfferId } from '@core/types';
-import { JobOffersService } from '@features/job-offers-data-access';
+import { JobOffersService } from 'src/app/features/data-access-job-offers';
 import { tap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Injectable({
   providedIn: 'root',
 })
-export class FavouriteJobOffersService {
-  private readonly STORAGE_KEY = 'favourite-job-offers-ids';
+export class FavoriteJobOffersService {
+  private readonly STORAGE_KEY = 'favorite-job-offers-ids';
 
+  public isInitialLoadDone: Signal<boolean> =
+    this.jobOffersService.isInitialLoadDone;
   public isLoading: Signal<boolean> = this.jobOffersService.isLoading;
   public loadingFailed: Signal<boolean> = this.jobOffersService.loadingFailed;
-  public favourites: Signal<JobOffer[]> = computed(() => {
-    const favIds: JobOfferId[] = this.favouritesIds();
+  public favorites: Signal<JobOffer[]> = computed(() => {
+    const favIds: JobOfferId[] = this.favoritesIdsSignal();
 
     return this.jobOffersService
       .jobOffers()
       .filter((oneOffer: JobOffer) => favIds.includes(oneOffer.id));
   });
 
-  private favouritesIds = signal<JobOfferId[]>(
+  private favoritesIdsSignal = signal<JobOfferId[]>(
     this.storage.getItem<JobOfferId[]>(this.STORAGE_KEY) ?? [],
   );
 
@@ -32,14 +34,18 @@ export class FavouriteJobOffersService {
     this.enableStorageSynchronization();
   }
 
-  public isFavourite(id: JobOfferId): Signal<boolean> {
-    return computed(() => this.favouritesIds().includes(id));
+  public get favoritesIds(): Signal<JobOfferId[]> {
+    return this.favoritesIdsSignal.asReadonly();
+  }
+
+  public isFavorite(id: JobOfferId): Signal<boolean> {
+    return computed(() => this.favoritesIdsSignal().includes(id));
   }
 
   public toggle(id: JobOfferId): void {
-    const idx: JobOfferId = this.favouritesIds().indexOf(id);
+    const idx: JobOfferId = this.favoritesIdsSignal().indexOf(id);
 
-    this.favouritesIds.update((currIds: JobOfferId[]) => {
+    this.favoritesIdsSignal.update((currIds: JobOfferId[]) => {
       const newIds: JobOfferId[] = currIds.slice();
 
       if (idx >= 0) {
@@ -56,7 +62,7 @@ export class FavouriteJobOffersService {
 
   private enableStorageSynchronization(): void {
     effect(() => {
-      const favIds: JobOfferId[] = this.favouritesIds();
+      const favIds: JobOfferId[] = this.favoritesIdsSignal();
 
       this.storage.setItem(this.STORAGE_KEY, favIds);
     });
@@ -66,7 +72,7 @@ export class FavouriteJobOffersService {
       .pipe(
         tap((remoteFavIds: JobOfferId[] | null) => {
           if (remoteFavIds) {
-            this.favouritesIds.set(remoteFavIds);
+            this.favoritesIdsSignal.set(remoteFavIds);
           }
         }),
         takeUntilDestroyed(),

@@ -1,21 +1,21 @@
 import { ChangeDetectionStrategy, Component, Signal } from '@angular/core';
-import { JobOffersService } from 'src/app/features/data-access-job-offers';
+import { FavoriteJobOffersService } from 'src/app/features/data-access-job-offers';
 import { JobOffer } from '@core/types';
 import { JobOffersListComponent } from 'src/app/features/job-offers-list';
 
 @Component({
-  selector: 'app-jobs-list-page',
+  selector: 'app-favorite-jobs-list-page',
   standalone: true,
   imports: [JobOffersListComponent],
-  templateUrl: './jobs-list-page.component.html',
-  styleUrl: './jobs-list-page.component.css',
+  templateUrl: './favorite-jobs-list-page.component.html',
+  styleUrl: './favorite-jobs-list-page.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class JobsListPageComponent {
+export class FavoriteJobsListPageComponent {
   protected isInitialLoadDone: Signal<boolean> =
     this.dataService.isInitialLoadDone;
   protected loadingFailed: Signal<boolean> = this.dataService.loadingFailed;
-  protected jobOffers: Signal<JobOffer[]> = this.dataService.jobOffers;
+  protected jobOffers: Signal<JobOffer[]> = this.dataService.favorites;
 
-  public constructor(private dataService: JobOffersService) {}
+  public constructor(private dataService: FavoriteJobOffersService) {}
 }

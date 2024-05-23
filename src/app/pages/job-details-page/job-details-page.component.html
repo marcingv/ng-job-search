@@ -1,0 +1,11 @@
+<app-back-button></app-back-button>
+
+<div class="mt-8">
+  @if (data && data.details) {
+    <app-job-offer-details [details]="data.details"></app-job-offer-details>
+  } @else {
+    <app-error-placeholder
+      [message]="data?.resolveErrorMessage"
+    ></app-error-placeholder>
+  }
+</div>

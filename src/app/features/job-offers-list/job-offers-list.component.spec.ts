@@ -2,7 +2,11 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { JobOffersListComponent } from './job-offers-list.component';
 import { JobOffer } from '@core/types';
 import { JobOffersFactory } from '@testing/job-offers.factory';
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
 import { By } from '@angular/platform-browser';
 
 describe('JobOffersListComponent', (): void => {
@@ -43,5 +47,25 @@ describe('JobOffersListComponent', (): void => {
 
     const liItems: DebugElement[] = ul.queryAll(By.css('li'));
     expect(liItems.length).toEqual(offers.length);
+  });
+
+  it('should display an error if loading failed', (): void => {
+    component.loadingFailed = true;
+    fixture.componentRef.injector.get(ChangeDetectorRef).detectChanges();
+
+    const errorPlaceholder: DebugElement = fixture.debugElement.query(
+      By.css('app-error-placeholder'),
+    );
+    expect(errorPlaceholder).toBeTruthy();
+  });
+
+  it('should display empty placeholder for empty collection', (): void => {
+    component.data = [];
+    fixture.componentRef.injector.get(ChangeDetectorRef).detectChanges();
+
+    const emptyPlaceholder: DebugElement = fixture.debugElement.query(
+      By.css('app-empty-collection-placeholder'),
+    );
+    expect(emptyPlaceholder).toBeTruthy();
   });
 });
