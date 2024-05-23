@@ -12,7 +12,7 @@ body {
 }
 
 .app-button {
-  @apply p-2 flex items-center rounded disabled:opacity-25;
+  @apply p-2 flex items-center rounded disabled:opacity-25 transition-colors duration-75;
 }
 
 .app-button-primary {

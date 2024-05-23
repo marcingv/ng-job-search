@@ -18,4 +18,8 @@ describe('StarIconComponent', (): void => {
   it('should create', (): void => {
     expect(component).toBeTruthy();
   });
+
+  it('should have icon-star css class appended to root element', (): void => {
+    expect(fixture.debugElement.attributes['class']).toContain('icon-star');
+  });
 });
