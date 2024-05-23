@@ -28,6 +28,10 @@ export const routes: Routes = [
                 path: `:${PathParams.JOB_ID}`,
                 component: JobDetailsPageComponent,
               },
+              {
+                path: Paths.WILDCARD,
+                redirectTo: '',
+              },
             ],
           },
           {
@@ -41,6 +45,10 @@ export const routes: Routes = [
               {
                 path: `:${PathParams.JOB_ID}`,
                 component: JobDetailsPageComponent,
+              },
+              {
+                path: Paths.WILDCARD,
+                redirectTo: '',
               },
             ],
           },

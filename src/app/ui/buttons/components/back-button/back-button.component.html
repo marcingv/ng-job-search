@@ -1,0 +1,10 @@
+<a
+  [routerLink]="routerLink"
+  [relativeTo]="activatedRoute"
+  [title]="label ?? DEFAULT_LABEL"
+  appButton="secondary"
+  class="gap-3 items-center"
+>
+  <app-home-icon class="text-xs"></app-home-icon>
+  <span class="pe-3">{{ label ?? DEFAULT_LABEL }}</span>
+</a>
