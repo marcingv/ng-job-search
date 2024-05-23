@@ -1,12 +1,12 @@
-<div class="flex gap-4 items-center">
+<div class="flex gap-4 items-center bg-white border-b p-4">
   <img
     [src]="details.companyLogo"
     [alt]="details.companyName"
-    class="size-28 bg-gray-100 rounded border border-gray-100"
+    class="size-12 sm:size-28 bg-gray-100 rounded border border-gray-100"
   />
 
   <div class="flex-1">
-    <h2 class="text-3xl mb-4">{{ details.title }}</h2>
+    <h2 class="text-2xl sm:text-3xl mb-4">{{ details.title }}</h2>
 
     @if (tags.length > 0) {
       <app-chips-list [data]="tags"></app-chips-list>
@@ -14,7 +14,7 @@
   </div>
 </div>
 
-<div class="mt-4">
+<div class="mt-4 bg-white border-b p-4">
   <div>
     <span class="font-normal">Company:</span>
     {{ details.companyName }}
@@ -34,10 +34,13 @@
     <span class="font-normal">Reference:</span>
     {{ details.reference }}
   </div>
-
-  <section class="html-description mt-4">
-    <h2 class="font-normal text-lg">Description:</h2>
-
-    <div [innerHTML]="details.description | sanitizeHtml"></div>
-  </section>
 </div>
+
+<section class="mt-4 bg-white border-b p-4">
+  <h2 class="font-normal text-lg mb-4">Description:</h2>
+
+  <div
+    class="html-description"
+    [innerHTML]="details.description | sanitizeHtml"
+  ></div>
+</section>
