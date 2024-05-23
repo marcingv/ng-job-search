@@ -1,14 +1,11 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnChanges,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { BackButtonComponent } from '@ui/buttons/components/back-button';
-import { JobOfferDetails } from '@core/types';
 import { DatePipe } from '@angular/common';
 import { ChipsListComponent } from '@ui/chips/chips-list';
 import { SanitizeHtmlPipe } from '@ui/pipes';
+import { ResolvedJobOfferDetails } from '@features/job-offers-data-access';
+import { JobOfferDetailsComponent } from '@features/job-offer-details/job-offer-details.component';
+import { ErrorPlaceholderComponent } from '@ui/placeholders/error-placeholder';
 
 @Component({
   selector: 'app-job-details-page',
@@ -18,17 +15,13 @@ import { SanitizeHtmlPipe } from '@ui/pipes';
     DatePipe,
     ChipsListComponent,
     SanitizeHtmlPipe,
+    JobOfferDetailsComponent,
+    ErrorPlaceholderComponent,
   ],
   templateUrl: './job-details-page.component.html',
   styleUrl: './job-details-page.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class JobDetailsPageComponent implements OnChanges {
-  @Input({ required: true }) public details!: JobOfferDetails;
-
-  public tags: string[] = [];
-
-  public ngOnChanges(): void {
-    this.tags = [...this.details.types, ...this.details.industries];
-  }
+export class JobDetailsPageComponent {
+  @Input() public data?: ResolvedJobOfferDetails;
 }

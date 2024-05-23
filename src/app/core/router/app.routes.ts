@@ -32,7 +32,7 @@ export const routes: Routes = [
                 path: `:${PathParams.JOB_ID}`,
                 component: JobDetailsPageComponent,
                 resolve: {
-                  details: jobOfferDetailsResolver(),
+                  data: jobOfferDetailsResolver(),
                 },
               },
               {
@@ -58,7 +58,7 @@ export const routes: Routes = [
                   }),
                 ],
                 resolve: {
-                  details: jobOfferDetailsResolver(),
+                  data: jobOfferDetailsResolver(),
                 },
               },
               {
