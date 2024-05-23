@@ -1,27 +1,47 @@
 # NgJobSearch
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.2.1.
+This is a project developed as a part of "Angular Level 2 certification" from Angular Training.
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+To run the project locally use one the following commands:
 
-## Code scaffolding
+```bash
+npm run start
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+# OR using Docker:
+docker compose up
+```
 
-## Build
+The application is available at the URL: `http://localhost:4200/`.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Running unit tests & lint
 
-## Running unit tests
+You can run unit tests and linting using following commands:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```bash
+npm run test # run unit tests
+npm run lint # run lint checks
+```
 
-## Running end-to-end tests
+## Building for production
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+To build & publish production Docker images run following commands:
 
-## Further help
+```bash
+# Build & tag Docker image
+npm run docker-prod-build
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+# Publish image to DockerHub:
+npm run docker-prod-publish
+```
+
+### Running production image locally
+
+Production image can be run locally using following command:
+
+```bash
+docker compose -f docker-compose.prod.yml up
+```
+
+The application is available at the URL: `http://localhost:4000/`.

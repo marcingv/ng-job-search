@@ -1,0 +1,9 @@
+.angular
+.vscode
+.idea
+.git
+.github
+node_modules
+dist
+documents
+kubernetes
