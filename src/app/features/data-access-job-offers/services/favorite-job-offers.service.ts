@@ -11,6 +11,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 export class FavoriteJobOffersService {
   private readonly STORAGE_KEY = 'favorite-job-offers-ids';
 
+  public isInitialLoadDone: Signal<boolean> =
+    this.jobOffersService.isInitialLoadDone;
   public isLoading: Signal<boolean> = this.jobOffersService.isLoading;
   public loadingFailed: Signal<boolean> = this.jobOffersService.loadingFailed;
   public favorites: Signal<JobOffer[]> = computed(() => {

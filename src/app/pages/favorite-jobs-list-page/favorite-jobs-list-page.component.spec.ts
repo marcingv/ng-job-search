@@ -23,17 +23,18 @@ describe('FavoriteJobsListPageComponent', () => {
     JobOffersFactory.createInstance(),
     JobOffersFactory.createInstance(),
   ];
+
+  const isInitialLoadDone = signal(true);
   const loadingFailed = signal(false);
-  const isLoading = signal(false);
   const jobOffers = signal(offers);
 
   beforeEach(async () => {
     dataProvider = createSpyObj<FavoriteJobOffersService>([], {
+      get isInitialLoadDone(): Signal<boolean> {
+        return isInitialLoadDone;
+      },
       get loadingFailed(): Signal<boolean> {
         return loadingFailed;
-      },
-      get isLoading(): Signal<boolean> {
-        return isLoading;
       },
       get favorites(): Signal<JobOffer[]> {
         return jobOffers;

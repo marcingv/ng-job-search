@@ -12,7 +12,8 @@ import { JobOffersListComponent } from 'src/app/features/job-offers-list';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FavoriteJobsListPageComponent {
-  protected isLoading: Signal<boolean> = this.dataService.isLoading;
+  protected isInitialLoadDone: Signal<boolean> =
+    this.dataService.isInitialLoadDone;
   protected loadingFailed: Signal<boolean> = this.dataService.loadingFailed;
   protected jobOffers: Signal<JobOffer[]> = this.dataService.favorites;
 

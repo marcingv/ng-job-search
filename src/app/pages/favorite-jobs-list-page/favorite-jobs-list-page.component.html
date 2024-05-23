@@ -1,6 +1,8 @@
-<app-job-offers-list
-  [isLoading]="isLoading()"
-  [data]="jobOffers()"
-  [showActions]="false"
-  emptyMessage="No favorites selected."
-></app-job-offers-list>
+@if (isInitialLoadDone()) {
+  <app-job-offers-list
+    [loadingFailed]="loadingFailed()"
+    [data]="jobOffers()"
+    [showActions]="false"
+    emptyMessage="No favorites selected."
+  ></app-job-offers-list>
+}
