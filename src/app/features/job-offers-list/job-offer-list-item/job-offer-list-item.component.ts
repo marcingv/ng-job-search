@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  inject,
   Input,
   OnChanges,
   Signal,
@@ -10,16 +11,20 @@ import { StarIconComponent } from '@ui/icons/star-icon';
 import { FavouriteJobOffersService } from '@features/job-offers-data-access';
 import { ButtonDirective } from '@ui/buttons/directives';
 import { NgClass } from '@angular/common';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-job-offer-list-item',
   standalone: true,
-  imports: [StarIconComponent, ButtonDirective, NgClass],
+  imports: [StarIconComponent, ButtonDirective, NgClass, RouterLink],
   templateUrl: './job-offer-list-item.component.html',
   styleUrl: './job-offer-list-item.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class JobOfferListItemComponent implements OnChanges {
+  protected activatedRoute = inject(ActivatedRoute);
+  protected favouriteOffersService = inject(FavouriteJobOffersService);
+
   protected readonly ADD_TO_FAVORITES_LABEL = 'Add to favorites';
   protected readonly REMOVE_FROM_FAVORITES_LABEL = 'Remove from favorites';
 
@@ -27,12 +32,14 @@ export class JobOfferListItemComponent implements OnChanges {
   @Input() public showActions: boolean = true;
 
   protected isFavourite!: Signal<boolean>;
-
-  public constructor(
-    protected favouriteOffersService: FavouriteJobOffersService,
-  ) {}
+  protected detailsRouterLink!: string[];
 
   public ngOnChanges(): void {
     this.isFavourite = this.favouriteOffersService.isFavourite(this.offer.id);
+    this.detailsRouterLink = this.createDetailsRouterLink();
+  }
+
+  private createDetailsRouterLink(): string[] {
+    return [this.offer.id.toString()];
   }
 }

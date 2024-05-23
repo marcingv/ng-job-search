@@ -1,11 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { JobsListPageComponent } from './jobs-list-page.component';
 import { JobOffersService } from '@features/job-offers-data-access';
-import { DebugElement, signal, Signal } from '@angular/core';
+import { DebugElement, NO_ERRORS_SCHEMA, signal, Signal } from '@angular/core';
 import { JobOffer } from '@core/types';
 import { JobOffersFactory } from '@testing/job-offers.factory';
 import { By } from '@angular/platform-browser';
-import { JobOffersListComponent } from '@features/job-offers-list';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
 
@@ -35,10 +34,17 @@ describe('JobsListPageComponent', (): void => {
       },
     });
 
-    await TestBed.configureTestingModule({
-      imports: [JobsListPageComponent],
-      providers: [{ provide: JobOffersService, useValue: dataService }],
-    }).compileComponents();
+    await TestBed.overrideComponent(JobsListPageComponent, {
+      set: {
+        imports: [],
+        schemas: [NO_ERRORS_SCHEMA],
+      },
+    })
+      .configureTestingModule({
+        imports: [JobsListPageComponent],
+        providers: [{ provide: JobOffersService, useValue: dataService }],
+      })
+      .compileComponents();
 
     fixture = TestBed.createComponent(JobsListPageComponent);
     component = fixture.componentInstance;
@@ -51,7 +57,7 @@ describe('JobsListPageComponent', (): void => {
 
   it('should display offers list', (): void => {
     const listCmp: DebugElement = fixture.debugElement.query(
-      By.directive(JobOffersListComponent),
+      By.css('app-job-offers-list'),
     );
     expect(listCmp).toBeTruthy();
   });

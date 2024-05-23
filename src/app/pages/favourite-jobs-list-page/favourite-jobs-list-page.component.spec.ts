@@ -3,9 +3,16 @@ import { FavouriteJobsListPageComponent } from './favourite-jobs-list-page.compo
 import { FavouriteJobOffersService } from '@features/job-offers-data-access';
 import { JobOffer, JobOfferId } from '@core/types';
 import { JobOffersFactory } from '@testing/job-offers.factory';
-import { computed, Signal, signal } from '@angular/core';
+import {
+  computed,
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+  Signal,
+  signal,
+} from '@angular/core';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
+import { By } from '@angular/platform-browser';
 
 describe('FavouriteJobsListPageComponent', () => {
   let component: FavouriteJobsListPageComponent;
@@ -38,12 +45,19 @@ describe('FavouriteJobsListPageComponent', () => {
       },
     });
 
-    await TestBed.configureTestingModule({
-      imports: [FavouriteJobsListPageComponent],
-      providers: [
-        { provide: FavouriteJobOffersService, useValue: dataProvider },
-      ],
-    }).compileComponents();
+    await TestBed.overrideComponent(FavouriteJobsListPageComponent, {
+      set: {
+        imports: [],
+        schemas: [NO_ERRORS_SCHEMA],
+      },
+    })
+      .configureTestingModule({
+        imports: [FavouriteJobsListPageComponent],
+        providers: [
+          { provide: FavouriteJobOffersService, useValue: dataProvider },
+        ],
+      })
+      .compileComponents();
 
     fixture = TestBed.createComponent(FavouriteJobsListPageComponent);
     component = fixture.componentInstance;
@@ -52,5 +66,12 @@ describe('FavouriteJobsListPageComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should display offers list', (): void => {
+    const listCmp: DebugElement = fixture.debugElement.query(
+      By.css('app-job-offers-list'),
+    );
+    expect(listCmp).toBeTruthy();
   });
 });

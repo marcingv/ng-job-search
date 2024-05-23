@@ -7,6 +7,7 @@ import { DebugElement, signal } from '@angular/core';
 import { FavouriteJobOffersService } from '@features/job-offers-data-access';
 import { StarIconComponent } from '@ui/icons/star-icon';
 import { ButtonDirective } from '@ui/buttons/directives';
+import { provideRouter } from '@angular/router';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
 
@@ -30,6 +31,7 @@ describe('JobOfferListItemComponent', (): void => {
     await TestBed.configureTestingModule({
       imports: [JobOfferListItemComponent],
       providers: [
+        provideRouter([]),
         { provide: FavouriteJobOffersService, useValue: dataProvider },
       ],
     }).compileComponents();
@@ -80,5 +82,12 @@ describe('JobOfferListItemComponent', (): void => {
     button.triggerEventHandler('click');
 
     expect(dataProvider.toggle).toHaveBeenCalledWith(offer.id);
+  });
+
+  it('should render the link to details page', () => {
+    const detailsLink: DebugElement = fixture.debugElement.query(By.css('a'));
+
+    expect(detailsLink).toBeTruthy();
+    expect(detailsLink.attributes['href']).toContain(`/${offer.id}`);
   });
 });
