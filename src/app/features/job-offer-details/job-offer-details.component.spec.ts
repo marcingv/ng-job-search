@@ -17,6 +17,7 @@ describe('JobOfferDetailsComponent', () => {
     fixture = TestBed.createComponent(JobOfferDetailsComponent);
     component = fixture.componentInstance;
     component.details = details;
+    component.ngOnChanges();
     fixture.detectChanges();
   });
 
