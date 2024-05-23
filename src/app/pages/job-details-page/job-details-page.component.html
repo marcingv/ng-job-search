@@ -11,14 +11,7 @@
     <h2 class="text-3xl mb-4">{{ details.title }}</h2>
 
     @if (tags.length > 0) {
-      <ul class="flex gap-2 text-sm">
-        @for (oneTag of tags; track oneTag) {
-          <li
-            class="py-1 px-2 bg-slate-500 text-white rounded"
-            [innerHTML]="oneTag"
-          ></li>
-        }
-      </ul>
+      <app-chips-list [data]="tags"></app-chips-list>
     }
   </div>
 </div>
