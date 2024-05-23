@@ -1,9 +1,18 @@
-@if (data.length) {
-  <ul class="flex flex-col gap-4">
-    @for (oneOffer of data; track oneOffer) {
-      <li>
-        <app-job-offer-list-item [offer]="oneOffer"></app-job-offer-list-item>
-      </li>
-    }
-  </ul>
+@if (!isLoading) {
+  @if (data.length) {
+    <ul class="flex flex-col gap-4">
+      @for (oneOffer of data; track oneOffer) {
+        <li>
+          <app-job-offer-list-item
+            [offer]="oneOffer"
+            [showActions]="showActions"
+          ></app-job-offer-list-item>
+        </li>
+      }
+    </ul>
+  } @else {
+    <app-empty-collection-placeholder
+      [message]="emptyMessage"
+    ></app-empty-collection-placeholder>
+  }
 }

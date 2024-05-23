@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { JobOffersListComponent } from './job-offers-list.component';
 import { JobOffer } from '@core/types';
 import { JobOffersFactory } from '@testing/job-offers.factory';
-import { DebugElement } from '@angular/core';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
 describe('JobOffersListComponent', (): void => {
@@ -18,7 +18,14 @@ describe('JobOffersListComponent', (): void => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [JobOffersListComponent],
-    }).compileComponents();
+    })
+      .overrideComponent(JobOffersListComponent, {
+        set: {
+          imports: [],
+          schemas: [NO_ERRORS_SCHEMA],
+        },
+      })
+      .compileComponents();
 
     fixture = TestBed.createComponent(JobOffersListComponent);
     component = fixture.componentInstance;

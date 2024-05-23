@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding } from '@angular/core';
 
 @Component({
   selector: 'app-star-icon',
@@ -9,6 +9,5 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StarIconComponent {
-  @Input() public id?: string;
-  @Input() public cssClass?: string;
+  @HostBinding('class') class: string = 'icon-star';
 }

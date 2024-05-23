@@ -1,1 +1,2 @@
-export * from './job-offers-list.service';
+export * from './services/job-offers.service';
+export * from './services/favourite-job-offers.service';

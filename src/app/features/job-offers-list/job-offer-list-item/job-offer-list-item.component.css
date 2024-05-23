@@ -1,0 +1,7 @@
+:host ::ng-deep .icon-star.active {
+    @apply text-amber-500;
+}
+
+:host ::ng-deep .icon-star.active svg {
+  @apply fill-yellow-400;
+}

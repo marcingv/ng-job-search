@@ -20,5 +20,5 @@ export class JobsTabsPageComponent {
       name: 'Favourites',
       routerLink: [Paths.ROOT, Paths.FAVOURITES],
     },
-  ]);
+  ]).asReadonly();
 }

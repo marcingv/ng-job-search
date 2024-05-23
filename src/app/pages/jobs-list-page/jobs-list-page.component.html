@@ -1,1 +1,5 @@
-<app-job-offers-list [data]="jobOffers()"></app-job-offers-list>
+<app-job-offers-list
+  [isLoading]="isLoading()"
+  [data]="jobOffers()"
+  emptyMessage="No job offers available."
+></app-job-offers-list>
